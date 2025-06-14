@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lupa Kata Sandi</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background: linear-gradient(to right, #dbeafe, #e0f2fe);
+      font-family: Arial, sans-serif;
+    }
+    .reset-container {
+      max-width: 400px;
+      margin: auto;
+      margin-top: 100px;
+      background: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      animation: slideIn 0.8s ease-out;
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .btn-dana {
+      background-color: #007bff;
+      color: white;
+      border-radius: 8px;
+    }
+    .btn-dana:hover {
+      background-color: #006ae6;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="reset-container">
+      <h5 class="text-center mb-3">Reset Kata Sandi</h5>
+      <p class="text-muted text-center">Masukkan nomor ponsel Anda untuk mengatur ulang kata sandi.</p>
+      <form action="otp.html" onsubmit="return validateForm(event);">
+        <div class="mb-3">
+          <label for="phoneReset" class="form-label">Nomor Ponsel</label>
+          <input type="tel" class="form-control" id="phoneReset" placeholder="08xxxxxxxxxx" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">CAPTCHA: Berapa 3 + 4?</label>
+          <input type="text" class="form-control" id="captchaInput" placeholder="Jawaban" required>
+        </div>
+        <div class="d-grid">
+          <button type="submit" class="btn btn-dana">Kirim Kode OTP</button>
+        </div>
+      </form>
+      <div class="text-center mt-3">
+        <a href="index.html" class="text-decoration-none">Kembali ke Login</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="liveToast" class="toast align-items-center text-bg-danger border-0" role="alert">
+      <div class="d-flex">
+        <div class="toast-body" id="toastBody">Kesalahan</div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+      </div>
+    </div>
+  </div>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function validateForm(e) {
+      const captchaInput = document.getElementById('captchaInput');
+      const toastLive = document.getElementById('liveToast');
+      const toast = new bootstrap.Toast(toastLive);
+      if (captchaInput.value.trim() !== "7") {
+        e.preventDefault();
+        document.getElementById('toastBody').innerText = "Jawaban CAPTCHA salah!";
+        toast.show();
+        return false;
+      }
+      return true;
+    }
+  </script>
+
+</body>
+</html>
